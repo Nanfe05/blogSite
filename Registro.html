@@ -25,14 +25,22 @@
                       var correo = document.getElementById("correo").value;
                       var contrasena = document.getElementById("Contrasena").value;
                       var vericontrasena = document.getElementById("veriContrasena").value;
-                      
-                      
+                      var formato_correo = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                      /*if(!correo.match(formato_correo)){
+                        document.getElementById('correoError').innerHTML = 'Verifica la direccion de correo';
+                        
+
+                      }
+                      else{
+                        document.getElementById('correoError').innerHTML = '';
+                      }*/
                       if(nombre=="" || apellido=="" || correo=="" || contrasena=="" || vericontrasena=="" ) {
 
                           alert("Por favor rellena todos los campos");
 
                       }
-                    
+                      
+                      
                       else{
                         if(contrasena!=vericontrasena){
                           alert("Las contrasenas no coindicen");
@@ -47,18 +55,20 @@
                       alert("Registro Exitoso");
                         }
                       }
+                      //<--span id='correoerror' style="color:blueviolet;"></span>span>
                   }</script>
   <section class="form-register">
     <form action="" id="formulario-registro">
     <h4>Formulario Registro</h4>
-    <input class="jf-controls" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre" required>
-    <input class="jf-controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Apellido" required>  
-    <input class="jf-controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo" required>
-    <input class="jf-controls" type="password" name="Contrasena" id="Contrasena" placeholder="Ingrese su Contraseña" required>
-    <input class="jf-controls" type="password" name="Contrasena-verificacion" id="veriContrasena" placeholder="Confirme su Contraseña" required>
+    <input class="jf-controls" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre" required maxlength="20">  
+    <input class="jf-controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Apellido" required maxlength="20">   
+    <input class="jf-controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo" required maxlength="40">
+    
+    <input class="jf-controls" type="password" name="Contrasena" id="Contrasena" placeholder="Ingrese su Contraseña" required minlength="8">
+    <input class="jf-controls" type="password" name="Contrasena-verificacion" id="veriContrasena" placeholder="Confirme su Contraseña" required minlength="8" >   
     <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
     
-    <button type="button" onclick="verificarDatos()" class="jf-botons" > Registrar</button>
+    <button type="button" onclick="verificarDatos()" class="jf-botons" form=""> Registrar</button>
     <p><a href="#">¿Ya tengo Cuenta?</a></p>
     </form>
     
