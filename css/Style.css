@@ -67,4 +67,11 @@ body {
   color: white;
   margin: 16px 0;
   font-size: 16px;
+  cursor: pointer;
+  transition-duration: 0.4s;
 }
+.form-register .jf-botons:hover {
+  background-color: #8f0478; /* Green */
+  color: white;
+  box-shadow: 0 7px 10px 0 rgba(255, 255, 255, 0.808), 0 12px 35px 0  rgba(255, 255, 255, 0.959);
+} 
