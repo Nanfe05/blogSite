@@ -5,11 +5,11 @@
 ### Responsabilidades: 
 
 - [x] Registro                                      =>  **Juan Felipe**
-- [ ] Login                                         =>  **Jesus David De Avila**
-- [ ] Agregar comentario                            =>  **Jefry Quejada**
+- [x] Login                                         =>  **Jesus David De Avila**
+- [x] Agregar comentario                            =>  **Jefry Quejada**
 - [x] Agregar Blog                                  =>  **Yian Carlo Garcia**
-- [ ] Encabezado(header) y Footer(pie de página)    =>  **Alexander Soto**
+- [x] Encabezado(header) y Footer(pie de página)    =>  **Alexander Soto**
 - [x] Elementos contenedores                        =>  **Hernan Felipe Londono**
 
-- [ ] **UNIR TODO EL TRABAJO ANTES DEL 2 DIC**
+- [x] **UNIR TODO EL TRABAJO ANTES DEL 2 DIC**
 
