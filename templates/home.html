@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% include "header.html" %}
+{% block content %}
+<div class="hf-container">
+    <p>
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+    </p>
+    <div class="hf-btn-group">
+        <button  type="button" data-bs-toggle="modal" data-bs-target="#login" class="hf-btn full">Ingresa</button>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#register" class="hf-btn empty">Registrate</button>
+    </div>
+</div>
+<!-- Modal Login-->
+<div class="modal fade" id="login"  data-bs-keyboard="true" tabindex="-1" aria-labelledby="loginLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+        <div class="hf-login-form" >
+            <p class="hf-title">Ingresa</p>
+                <form id='loginForm' method="POST">
+                    <div class="hf-input-group">
+                        <label>Correo electronico:</label>
+                        <input class="hf-text-input bd" type="email" placeholder="Busca tu blog"/>
+                    </div>
+                    <div class="hf-input-group">
+                        <label>Contrasena:</label>
+                        <input class="hf-text-input bd" type="password" placeholder="Busca tu blog"/>
+                    </div>
+                    <p type="button" data-bs-toggle="modal" data-bs-target="#recover">
+                        Olvide mi constrasena
+                    </p>
+                    <button type="submit" class="hf-btn full control-panel">Ingresar</button>
+                </form>
+        </div>
+    </div>
+</div>
+<!-- Modal Register-->
+<div class="modal fade" id="register"  data-bs-keyboard="true" tabindex="-1" aria-labelledby="registerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+        <div class="form-register">
+            <form action="" id="formulario-registro">
+            <h4>Formulario Registro</h4>
+            <input class="jf-controls" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre" required maxlength="20">  
+            <input class="jf-controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Apellido" required maxlength="20">   
+            <input class="jf-controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo" required maxlength="40">
+            
+            <input class="jf-controls" type="password" name="Contrasena" id="Contrasena" placeholder="Ingrese su Contraseña" required minlength="8">
+            <input class="jf-controls" type="password" name="Contrasena-verificacion" id="veriContrasena" placeholder="Confirme su Contraseña" required minlength="8" >   
+            <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
+            
+            <button type="button" onclick="verificarDatos()" class="jf-botons" form=""> Registrar</button>
+            <p><a href="#">¿Ya tengo Cuenta?</a></p>
+            </form>
+            
+          </div>
+    </div>
+</div>
+<!-- Modal Recover Password -->
+<div class="modal fade" id="recover"  data-bs-keyboard="true" tabindex="-1" aria-labelledby="recoverLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+        <div class="hf-login-form">
+            <p class="hf-title">Recuperar Contrasena:</p>
+             <form id='recoverForm' method="POST">
+                <p class="hf-desc">
+                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.             </p>
+                 <div class="hf-input-group">
+                     <label>Correo electronico:</label>
+                     <input class="hf-text-input bd" type="email" placeholder="Busca tu blog"/>
+                 </div>
+                 <button type="submit" class="hf-btn full control-panel">Recuperar</button>
+             </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

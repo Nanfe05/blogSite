@@ -1,0 +1,26 @@
+{% if route == 'home' %}
+<header class='hf-header'>
+    <div class="hf-header-item left">
+        <img src="/static/assets/Logo.png" alt="logo"/>
+    </div>
+    <div class="hf-header-item right">
+        <p>ES</p>
+    </div>
+</header>
+{% else %}
+<header class='hf-header'>
+    <div class="hf-header-item left">
+        <img src="/static/assets/Logo.png" alt="logo"/>
+    </div>
+    <div class="hf-header-item center">
+        <p class="hf-h">Hola !</p>
+        <p class="hf-name">Jane Doe</p>
+        <form>
+            <input class="hf-text-input" type="text" placeholder="Busca tu blog"/>
+        </form>
+    </div>
+    <div class="hf-header-item right">
+        <p>ES</p>
+    </div>
+</header>
+{% endif %}

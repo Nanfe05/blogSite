@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+.form-register {
+  width: 400px;
+  background: black;
+  padding: 30px;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  border: 3px solid black;
+  font-family: 'calibri';
+  color: white;
+  
+  pointer-events: auto;
+}
+
+.form-register h4 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.jf-controls {
+  width: 100%;
+  background: #24303c;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  border: 1px solid #1f53c5;
+  font-family: 'calibri';
+  font-size: 18px;
+  color: white;
+}
+
+.form-register p {
+  height: 40px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 40px;
+}
+
+.form-register a {
+  color: white;
+  text-decoration: none;
+}
+
+.form-register a:hover {
+  color: red;
+  text-decoration: underline;
+}
+
+.form-register .jf-botons {
+  width: 100%;
+  background: #24303c;
+  border: none;
+  padding: 12px;
+  color: white;
+  margin: 16px 0;
+  font-size: 16px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+.form-register .jf-botons:hover {
+  background-color: #8f0478; /* Green */
+  color: white;
+  box-shadow: 0 7px 10px 0 rgba(255, 255, 255, 0.808), 0 12px 35px 0  rgba(255, 255, 255, 0.959);
+} 
