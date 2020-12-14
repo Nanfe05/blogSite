@@ -24,7 +24,7 @@ class RegisterForm(Form):
         Length(min=6,max=20)
         ])
     lastname = StringField('lastname',[
-        DataRequired(message='Name is required'),
+        DataRequired(message='Lastname is required'),
         Length(min=6,max=20)
         ])
     email = StringField('email',[

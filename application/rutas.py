@@ -1,6 +1,9 @@
 # API ROUTES 
+import os
 from flask import Flask,Blueprint,jsonify,request
 from application.forms import LoginForm,RegisterForm,RecoverForm,AddBlogForm
+from db.db import get_db,close_connection
+import hashlib
 
 
 blog_api=Blueprint('blog_api',__name__)
@@ -9,7 +12,29 @@ blog_api=Blueprint('blog_api',__name__)
 def login():
     form = LoginForm(request.form)
     if form.validate():
-        return jsonify(type='success',msg='Ingreso exitoso!')
+        try:
+            email = request.form.get('email')
+            con = get_db()
+            cursor = con.cursor()
+            # Validar que el usuario existe
+            query = "SELECT * FROM usuarios WHERE email='"+email+"'"
+            cursor.execute(query)
+            user_exists = cursor.fetchall()
+            close_connection()
+            if(len(user_exists) > 0):
+                password_send= hashlib.sha256((request.form.get('password')+os.environ.get("SALT_PASSWORD")).encode()).hexdigest()
+                password_real= user_exists[0][4]
+                print(password_real)
+                if(password_real == password_send):
+                    return jsonify(type='success',msg='Ingreso exitoso!')
+                else:
+                    raise Exception("Usuario ya existe")    
+            # Validar Password    
+            else:
+                raise Exception("Usuario ya existe")    
+        except Exception as e:
+            print(e)
+            return jsonify(type='error',msg='Error en el login!')
     return jsonify(type='error',msg='Error en el login!')
 
 # /api/register/
@@ -17,8 +42,31 @@ def login():
 def register():
     form = RegisterForm(request.form)
     if form.validate():
-        return jsonify(type='success',msg='Registro exitoso!')
-    return jsonify(type='error',msg='Error en el Registro!')
+        try:
+            email = request.form.get('email')
+            con = get_db()
+            cursor = con.cursor()
+            ## CHECK IF EMAIL PREVIOUSLY EXISTS
+            query = "SELECT email FROM usuarios WHERE email='"+email+"'"
+            cursor.execute(query)
+            user_exists = cursor.fetchall()
+            if(len(user_exists)):
+                close_connection()
+                return jsonify(type='success',msg='Email registrado previamente')
+            ## IF USER HAS NOT BEEN CREATED, CREATE IT
+            name=request.form.get('name')
+            lastname=request.form.get('lastname')
+            password= hashlib.sha256((request.form.get('password')+os.environ.get("SALT_PASSWORD")).encode()).hexdigest()
+            query = "INSERT INTO usuarios (name,lastname,email,password) VALUES('"+name+"','"+lastname+"','"+email+"','"+password+"')"
+            cursor.execute(query)
+            con.commit()#rows = cursor.fetchall()
+            close_connection()
+            
+            return jsonify(type='success',msg='Registro exitoso!')
+        except Exception as e:
+            print(e)
+            return jsonify(type='error',msg='Error al registrar usuario!')
+    return jsonify(type='error',msg='Error en el Formulario!')
 
 @blog_api.route('/api/recoverpassword',methods=['POST'])
 def recover():
