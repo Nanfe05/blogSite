@@ -17,8 +17,6 @@ if(nombre=="" || apellido=="" || correo=="" || contrasena=="" || vericontrasena=
 alert("Por favor rellena todos los campos");
 
 }
-
-
 else{
 if(contrasena!=vericontrasena){
 alert("Las contrasenas no coindicen");

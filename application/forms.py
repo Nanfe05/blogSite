@@ -9,7 +9,7 @@ app.config['SECRET_KEY'] = 'grupoC'
 class LoginForm(Form):
     email = StringField('email',[
         DataRequired(message='Email required'),
-        Length(min=6,max=20)
+        Length(min=6,max=50)
         ])
     password = PasswordField('password',validators=[
         DataRequired(message='Password required'),
@@ -21,15 +21,15 @@ class LoginForm(Form):
 class RegisterForm(Form):
     name = StringField('name',[
         DataRequired(message='Name is required'),
-        Length(min=6,max=20)
+        Length(min=2,max=20)
         ])
     lastname = StringField('lastname',[
         DataRequired(message='Lastname is required'),
-        Length(min=6,max=20)
+        Length(min=2,max=20)
         ])
     email = StringField('email',[
         DataRequired(message='Email required'),
-        Length(min=6,max=20)
+        Length(min=6,max=50)
         ])
     password = PasswordField('password',validators=[
         DataRequired(message='Password required'),

@@ -1,3 +1,22 @@
+// Logout
+var logoutButton = document.getElementById("logoutbutton");
+
+var OnLogout = async function(event){
+    event.preventDefault();
+    const result = await axios.get('/api/logout');
+    const responseURL = new URL(result.request.responseURL);
+    if(responseURL.pathname !== '/api/logout'){
+        window.location.href = result.request.responseURL;
+    }
+}
+
+if(logoutButton){
+    // console.log(window.location.href);
+    // console.log(window.location.hostname + window.location.pathname);
+    logoutButton.addEventListener("click",OnLogout,true);
+}
+
+
 // Add Blog
 
 var addBlogForm = document.getElementById("addBlogForm");

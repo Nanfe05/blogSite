@@ -36,17 +36,17 @@
 <div class="modal fade" id="register"  data-bs-keyboard="true" tabindex="-1" aria-labelledby="registerLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
         <div class="form-register">
-            <form action="" id="formulario-registro">
+            <form method="POST" id="formulario-registro">
             <h4>Formulario Registro</h4>
-            <input class="jf-controls" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre" required maxlength="20">  
-            <input class="jf-controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Apellido" required maxlength="20">   
-            <input class="jf-controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo" required maxlength="40">
+            <input class="jf-controls" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre" required maxlength="20" >  
+            <input class="jf-controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Apellido" required maxlength="20" >   
+            <input class="jf-controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo" required maxlength="30" >
             
-            <input class="jf-controls" type="password" name="Contrasena" id="Contrasena" placeholder="Ingrese su Contraseña" required minlength="8">
-            <input class="jf-controls" type="password" name="Contrasena-verificacion" id="veriContrasena" placeholder="Confirme su Contraseña" required minlength="8" >   
+            <input class="jf-controls" type="password" name="Contrasena" id="Contrasena" placeholder="Ingrese su Contraseña" required minlength="6">
+            <input class="jf-controls" type="password" name="Contrasena-verificacion" id="veriContrasena" placeholder="Confirme su Contraseña" required minlength="6" >   
             <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
             
-            <button type="button" onclick="verificarDatos()" class="jf-botons" form=""> Registrar</button>
+            <button type="submit" class="jf-botons"> Registrar</button>
             <p><a href="#">¿Ya tengo Cuenta?</a></p>
             </form>
             
