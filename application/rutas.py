@@ -3,9 +3,7 @@ import os
 from flask import Flask,Blueprint,jsonify,request, session,redirect,url_for
 from application.forms import LoginForm,RegisterForm,RecoverForm,AddBlogForm
 from db.db import get_db,close_connection
-import hashlib
-
-
+from werkzeug.security import generate_password_hash,check_password_hash
 blog_api=Blueprint('blog_api',__name__)
 
 
@@ -24,9 +22,8 @@ def login():
             user_exists = cursor.fetchall()
             close_connection()
             if(len(user_exists) > 0):
-                password_send= hashlib.sha256((request.form.get('password')+os.environ.get("SALT_PASSWORD")).encode()).hexdigest()
                 password_real= user_exists[0][4]
-                if(password_real == password_send):
+                if(check_password_hash(password_real,request.form.get('password'))):
                     session['user_email']=email
                     return redirect(url_for("blog"))
                     #return jsonify(type='success',msg='Ingreso exitoso!')
@@ -69,7 +66,7 @@ def register():
             ## IF USER HAS NOT BEEN CREATED, CREATE IT
             name=request.form.get('name')
             lastname=request.form.get('lastname')
-            password= hashlib.sha256((request.form.get('password')+os.environ.get("SALT_PASSWORD")).encode()).hexdigest()
+            password= generate_password_hash(request.form.get('password'))
             query = "INSERT INTO usuarios (name,lastname,email,password) VALUES('"+name+"','"+lastname+"','"+email+"','"+password+"')"
             cursor.execute(query)
             con.commit()#rows = cursor.fetchall()

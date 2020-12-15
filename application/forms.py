@@ -46,11 +46,15 @@ class RecoverForm(Form):
 class AddBlogForm(Form):
     name = StringField('name',[
         DataRequired(message='Name is required'),
-        Length(min=6,max=20)
+        Length(min=6,max=30)
         ])
     subject = StringField('subject',[
         DataRequired(message='subject is required'),
         Length(min=6,max=20)
+        ])
+    content = StringField('content',[
+        DataRequired(message='subject is required'),
+        Length(min=5,max=250)
         ])
 
 

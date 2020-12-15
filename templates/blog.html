@@ -119,43 +119,21 @@
         <!-- AGREGAR BLOG -->
         <div class="modal fade" id="agregarBlog"  data-bs-keyboard="true" tabindex="-1" aria-labelledby="agregarBlogLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
-                <div style="pointer-events: auto;">
-                    <form   id='addBlogForm' method="POST"  class="yc-form">
-                        <label  class='yc-label' style="position: relative; font-size: 20px; align-content: center;" for="fname">NUEVO BLOG</label>         
-                        <table style="text-shadow: #330033;" class="yc-table">
-        
-                            <tr style="text-indent: -70px">    <!--FILA-->
-                                
-                                <td>
-                                    <label class='yc-label' for="fname">Nombre del Blog:</label><br>
-                                    <Input class='yc-input' style=" color: black;width: 251px; height: 26px; left: 158px; top: 137px; background: #ffffff; border: 1px solid #330033; box-sizing: border-box; border-radius: 20px; text-shadow:#330033;" name="name" Type="text" value="" size=20 maxlength=20>
-                                </td>
-                                <td>
-                                    <label class='yc-label' for="fname">Autor:</label><br>
-                                    <Input class='yc-input' style="color: black;position: left; width: 251px; height: 26px; left: 58px; top: 137px; background: #ffffff; border: 1px solid #330033; box-sizing: border-box; border-radius: 20px;" name="Nombre" Type="text" value="" size=20 maxlength=20>
-                                </td>
-                            </tr>
-                                
-                            <tr style="text-indent: -70px">
-                                <td>
-                                    <label class='yc-label' for="fname">Temática:</label><br>
-                                    <Input class='yc-input' style="color: black;width: 251px; height: 26px; left: 58px;background: #ffffff; border: 1px solid #330033; box-sizing: border-box; border-radius: 20px;"  name="subject" Type="text" value="" size=20 maxlength=20>
-                                </td>
-                                <td>
-                                    <label class='yc-label' for="fname">Url:</label><br>
-                                    <Input class='yc-input' style="color: black; position: left; width: 251px; height: 26px; left: 58px; top: 137px; background: #ffffff; border: 1px solid #330033; box-sizing: border-box; border-radius: 20px;" name="Nombre" Type="text" value="" size=20 maxlength=20>
-                                </td>
-                            </tr>
-                                <td>
-                                    <button class="hf-btn full control-panel">Crear Blog</button>
-                                    <!-- <Input class='yc-input' style="color: white;width: 166px; font-weight: 700 ; height: 30px; background-color: #330033; border-radius: 15px" class="centrar" Type="submit" Name = "Enviar" value="Crear Blog"> -->
-                                </td>
-                                <td>
-                                    <button class="hf-btn full control-panel">Cancelar</button>
-                                    <!-- <Input class='yc-input' style="color: white;width: 166px; font-weight: 700; height: 30px; background-color: #330033; border-radius: 15px" class="centrar" Type="reset" Name="Nombre2" value="Cancelar"> -->
-                                </td>
-                            </tr>
-                        </table>
+                <div style="pointer-events: auto;" class="hf-login-form">
+                    <p class="hf-title">Nuevo Blog</p>         
+                    <form   id='addBlogForm' method="POST">
+                        <div class="hf-input-group">
+                            <label>Nombre del Blog:</label>
+                            <Input Type="text" class="hf-text-input bd">
+                        </div>
+                        <div class="hf-input-group">
+                            <label>Categoria:</label>
+                            <Input Type="text" class="hf-text-input bd"/>
+                        </div>
+                        <div class="hf-input-group">
+                            <textarea rows="10" class="hf-text-input bd textarea" placeholder="Escribe tu blog"></textarea>
+                        </div>
+                        <button type="submit" class="hf-btn full control-panel">Crear Blog</button>  
                     </form>
                 </div>
             </div>

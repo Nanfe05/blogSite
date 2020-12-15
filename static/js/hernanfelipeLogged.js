@@ -26,8 +26,11 @@ var OnAddBlogSubmit = async function(event){
     // Create form data
     const formData = new FormData();
     formData.append('name',event.target[0].value);
-    formData.append('subject',event.target[2].value);
+    formData.append('subject',event.target[1].value);
+    formData.append('content',event.target[2].value);
+    console.log(event.target[0].value,event.target[1].value,event.target[2].value);
     const result = await axios.post('/api/addblog',formData);
+    
     alert(JSON.stringify(result.data));
 }
 
@@ -39,7 +42,7 @@ if(addBlogForm){
 // Get Blogs
 var GetBlogs = async function(){
     const result = await axios.get('/api/blogs');
-    alert(JSON.stringify(result.data));
+    console.log(JSON.stringify(result.data));
 }
 
 setTimeout(()=>{
