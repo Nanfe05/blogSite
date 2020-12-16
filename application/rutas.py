@@ -5,6 +5,7 @@ from application.forms import LoginForm,RegisterForm,RecoverForm,AddBlogForm
 from db.db import get_db,close_connection
 from werkzeug.security import generate_password_hash,check_password_hash
 blog_api=Blueprint('blog_api',__name__)
+import datetime
 
 
 # /api/logout
@@ -89,9 +90,34 @@ def recover():
 def add_blog():
     form = AddBlogForm(request.form)
     if form.validate():
-        return jsonify(type='success',msg='Blog Agregado exitosamente!')
+        title=request.form.get('title')
+        subject=request.form.get('subject')
+        content=request.form.get('content')
+        try:
+            #Get User ID
+            con = get_db()
+            cursor = con.cursor()
+            query = "SELECT id FROM usuarios WHERE email='"+session['user_email']+"'"
+            cursor.execute(query)
+            user_id = cursor.fetchone()[0]
+            #Agregar Blog
+            query = "INSERT INTO blogs (owner,subject,title,content,isPublished,isActive,dateCreated,dateModified) VALUES('"+str(user_id)+"','"+subject+"','"+title+"','"+content+"','"+str(1)+"','"+str(1)+"','"+str(datetime.datetime.now())+"','"+str(datetime.datetime.now())+"')"
+            cursor.execute(query)
+            con.commit()
+            close_connection()
+            return jsonify(type='success',msg='Blog Agregado exitosamente!')
+        except Exception as e:
+            print(e)
+            return jsonify(type='error',msg='Error agregando el blog')
     return jsonify(type='error',msg='No se puede agregar el blog!')
 
 @blog_api.route('/api/blogs',methods=['GET'])
 def get_blogs():
-    return jsonify(type='blog',msg='Te estamos enviando todos los blogs ....')
+    con = get_db()
+    cursor = con.cursor()
+    query = "SELECT * FROM blogs"
+    cursor.execute(query)
+    blogs = cursor.fetchall()
+    close_connection()
+    # Sending blogs as an array
+    return jsonify(blogs)

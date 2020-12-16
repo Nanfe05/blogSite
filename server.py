@@ -17,7 +17,7 @@ def home():
 @app.route('/blog')
 def blog():
     if "user_email" in session:
-        return render_template("blog.html", route='blog')
+        return render_template("blog.html", route='blog',user=session['user_email'])
     else:
         return redirect(url_for("home"))
 
