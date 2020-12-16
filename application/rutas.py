@@ -7,6 +7,7 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from flask_mail import Mail, Message
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 
+
 blog_api=Blueprint('blog_api',__name__)
 #app.config('config.cfg')
 #mail = Mail(blog_api)
@@ -55,8 +56,8 @@ def logout():
 
 
                
-@blog_api.route('/confirm_email/<token>')
-def confirm_email1(token):
+@blog_api.route('/blog_api/confirm_email/<token>')
+def confirm_email(token):
     
     return '<h1>Confirmacion completa</h1>'
 
@@ -76,19 +77,20 @@ def register():
             msg = Message('Confirm Email', sender='ffernandezj@uninorte.edu.co', recipients=[email])
             link = url_for('blog_api.confirm_email', token=token, _external=True)
             msg.body = 'Your link is {}'.format(link)
-            mail.send(msg)     
+            mail.send(msg)   
+              
         return app  
     
     form = RegisterForm(request.form)
-    # form.validate()
-    # print(form.errors)
+    form.validate()
+    print(form.errors)
     
     if form.validate():
         try:
             
-            gettingapp()
+            
             email = request.form.get('email')                      
-                                
+            gettingapp()                    
             con = get_db()
             cursor = con.cursor()
             ## CHECK IF EMAIL PREVIOUSLY EXISTS
@@ -109,7 +111,7 @@ def register():
             con.commit()#rows = cursor.fetchall()
             close_connection()
             session['user_email']=email
-            mensaje='''<script>alert('Por favor activa cuenta usando el link activacion enviado');</script>'''
+            
             return redirect(url_for("blog"))
         except Exception as e:
             print(e)
@@ -122,14 +124,11 @@ def recover():
     if form.validate():
         return jsonify(type='success',msg='Recuperacion Exitosa!')
     return jsonify(type='error',msg='No se puede recupear la contrasena!')
-@blog_api.route('/confirm_email1/<token>')
-def confirm_email(token):
-    
-    try:
-        email = s.loads(token, salt='email-confirm', max_age=3600)
-    except SignatureExpired:
-        return '<h1>El token expiro</h1>'
-    return '<h1>Confirmacion completa</h1>'
+
+
+
+
+
 @blog_api.route('/api/addblog',methods=['POST'])
 def add_blog():
     form = AddBlogForm(request.form)
