@@ -1,11 +1,20 @@
 # API ROUTES 
 import os
-from flask import Flask,Blueprint,jsonify,request, session,redirect,url_for
+from flask import Flask,Blueprint,jsonify,request, session,redirect,url_for,current_app
 from application.forms import LoginForm,RegisterForm,RecoverForm,AddBlogForm,AddCommentForm
+
 from db.db import get_db,close_connection
 from werkzeug.security import generate_password_hash,check_password_hash
+from flask_mail import Mail, Message
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired
+
+
 blog_api=Blueprint('blog_api',__name__)
-import datetime
+#app.config('config.cfg')
+#mail = Mail(blog_api)
+
+
+
 
 
 # /api/logout
@@ -45,14 +54,64 @@ def logout():
     return redirect(url_for("home"))
 
 # /api/register/
-@blog_api.route('/api/register',methods=['POST'])
-def register():
+
+
+               
+@blog_api.route('/blog_api/confirm_email/<token>',methods=['GET'] )
+def confirm_email(token):
     form = RegisterForm(request.form)
-    # form.validate()
-    # print(form.errors)
+    #email = email
+    email=''
+
+    con = get_db()
+    cursor = con.cursor()
+    query = "UPDATE usuarios SET emailValidated=True WHERE email='"+email+"'"
+    cursor.execute(query)
+    con.commit()#rows = cursor.fetchall()        
+    return '<h1>Confirmacion completa</h1>'
+@blog_api.route('/blog_api/confirm_email/<token>/<string:email>',methods=['GET'] )    
+def confirm_email1(token,email):
+    form = RegisterForm(request.form)
+    email = email
+    
+
+    con = get_db()
+    cursor = con.cursor()
+    query = "UPDATE usuarios SET emailValidated=True WHERE email='"+email+"'"
+    cursor.execute(query)
+    con.commit()#rows = cursor.fetchall()        
+    return '<h1>Confirmacion completa</h1>'    
+
+   
+@blog_api.route('/api/register',methods=['POST'])
+
+def register():
+    def gettingapp ():
+        app = Flask(__name__)
+        s = URLSafeTimedSerializer('grupoC') 
+        with app.app_context():  
+            app = Flask(__name__)
+            current_app.config.from_pyfile('config.cfg')
+            mail = Mail(current_app)
+            email = request.form.get('email')                      
+            token = s.dumps(email, salt='email-confirm')
+            msg = Message('Confirm Email', sender='ffernandezj@uninorte.edu.co', recipients=[email])
+            link = url_for('blog_api.confirm_email', token=token,  _external=True)
+            msg.body = 'Your link is {}/{}'.format(link,email)
+            mail.send(msg)   
+              
+        return app  
+    
+    form = RegisterForm(request.form)
+    form.validate()
+    print(form.errors)
+    
     if form.validate():
         try:
-            email = request.form.get('email')
+            
+            
+            email = request.form.get('email')                      
+                                
             con = get_db()
             cursor = con.cursor()
             ## CHECK IF EMAIL PREVIOUSLY EXISTS
@@ -62,22 +121,25 @@ def register():
             if(len(user_exists)):
                 close_connection()
                 # Init session
-                return jsonify(type='error',msg='Error al registrar usuario!')
+                return jsonify(type='error',msg='Usuario ya existe')
                 #return jsonify(type='success',msg='Email registrado previamente')
             ## IF USER HAS NOT BEEN CREATED, CREATE IT
             name=request.form.get('name')
             lastname=request.form.get('lastname')
             password= generate_password_hash(request.form.get('password'))
+            #password1=request.form.get('password1')
             query = "INSERT INTO usuarios (name,lastname,email,password) VALUES('"+name+"','"+lastname+"','"+email+"','"+password+"')"
             cursor.execute(query)
             con.commit()#rows = cursor.fetchall()
             close_connection()
             session['user_email']=email
+            gettingapp()
             return redirect(url_for("blog"))
+            
         except Exception as e:
             print(e)
-            return jsonify(type='error',msg='Error al registrar usuario!')
-    return jsonify(type='error',msg='Error en el Formulario!')
+            return jsonify(type='error',msg=form.errors)
+    return jsonify(type='error',msg=form.errors)
 
 @blog_api.route('/api/recoverpassword',methods=['POST'])
 def recover():
@@ -85,6 +147,10 @@ def recover():
     if form.validate():
         return jsonify(type='success',msg='Recuperacion Exitosa!')
     return jsonify(type='error',msg='No se puede recupear la contrasena!')
+
+
+
+
 
 @blog_api.route('/api/addblog',methods=['POST'])
 def add_blog():
@@ -196,3 +262,4 @@ def add_comment():
             print(e)
             return jsonify(type='error',msg='Error agregando el comentario')
     return jsonify(type='error',msg='No se puede agregar el comentario!')
+

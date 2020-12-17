@@ -32,6 +32,8 @@ var OnRegisterSubmit = async function(event){
     registerData.append('lastname',event.target[1].value);
     registerData.append('email',event.target[2].value);
     registerData.append('password',event.target[3].value);
+    registerData.append('password1',event.target[4].value);
+    registerData.append('captcha',event.target[5].value);
     
     const result = await axios.post('/api/register',registerData);
     const responseURL = new URL(result.request.responseURL);

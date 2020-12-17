@@ -36,22 +36,45 @@
 <div class="modal fade" id="register"  data-bs-keyboard="true" tabindex="-1" aria-labelledby="registerLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
         <div class="form-register">
-            <form method="POST" id="formulario-registro">
-            <h4>Formulario Registro</h4>
-            <input class="jf-controls" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre" required maxlength="20" >  
-            <input class="jf-controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Apellido" required maxlength="20" >   
-            <input class="jf-controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo" required maxlength="30" >
-            
-            <input class="jf-controls" type="password" name="Contrasena" id="Contrasena" placeholder="Ingrese su Contraseña" required minlength="6">
-            <input class="jf-controls" type="password" name="Contrasena-verificacion" id="veriContrasena" placeholder="Confirme su Contraseña" required minlength="6" >   
-            <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
-            
-            <button type="submit" class="jf-botons"> Registrar</button>
-            <p><a href="#">¿Ya tengo Cuenta?</a></p>
-            </form>
+            <form action="{{url_for('blog_api.register')}}" method ="POST" id="formulario-registro">
+                <h4>Formulario Registro</h4>
+                  
+                {{ form.csrf_token }}
+                {% for error in form.name.errors %}
+                 <li style="color:red" >{{error}}
+                {% endfor %}  </li> 
+                <input class="jf-controls" placeholder="Ingrese su Nombre" id=name {{form.name}}  
+                
+                {% for error in form.lastname.errors %}
+                 <li style="color:red" >{{error}}
+                {% endfor %} </li>  
+                <input class="jf-controls"  placeholder="Ingrese su Apellido" id=lastname maxlength="20"{{form.lastname}} 
+                
+                {% for error in form.email.errors %}
+                <li style="color:red" >{{error}}
+                {% endfor %}  </li>
+                <input class="jf-controls"  placeholder="Ingrese su Correo" id=email maxlength="40" {{form.email}} 
+                
+                {% for error in form.password.errors %}
+                 <li style="color:red" >{{error}}
+                {% endfor %} </li>
+                
+                <input class="jf-controls" type = "password" placeholder="Ingrese su Contraseña" id=password {{form.password}}
+                <input class="jf-controls" type = "password" placeholder="Confirme su Contraseña" id=password1 {{form.password1}} 
+                
+                
+                
+                
+                
+                <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
+                <div id="captcha" align="center">{{form.captcha}} </div>
+                <button  class= "jf-botons"type="submit" value="Registrar" >Registrar </button>
+                <p><a href="#">¿Ya tengo Cuenta?</a></p>
+                </form>
             
           </div>
     </div>
+</div>
 </div>
 <!-- Modal Recover Password -->
 <div class="modal fade" id="recover"  data-bs-keyboard="true" tabindex="-1" aria-labelledby="recoverLabel" aria-hidden="true">
