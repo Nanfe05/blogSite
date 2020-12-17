@@ -42,7 +42,7 @@ class RecoverForm(Form):
         DataRequired(message='Email required'),
         Length(min=8,max=20)
         ])
-# # FORM ADD BLOG
+## FORM ADD BLOG
 class AddBlogForm(Form):
     title = StringField('title',[
         DataRequired(message='Title is required'),
@@ -55,6 +55,16 @@ class AddBlogForm(Form):
     content = StringField('content',[
         DataRequired(message='subject is required'),
         Length(min=1,max=250)
+        ])
+## FORM ADD BLOG
+class AddCommentForm(Form):
+    id = StringField('id',[
+        DataRequired(message='ID is required'),
+        Length(min=1,max=10)
+        ])
+    comment = StringField('comment',[
+        DataRequired(message='comment is required'),
+        Length(min=1,max=100)
         ])
 
 

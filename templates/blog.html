@@ -14,7 +14,7 @@
                 <div class="hf-panel-left">
                     <div class="hf-control-panel">
                         <p>Panel de Control:</p>
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#agregarBlog" class="hf-btn empty control-panel">Agregar Blog</button>
+                        <button type="button" data-bs-toggle="modal" id="#agregarBlog" data-bs-target="#agregarBlog" class="hf-btn empty control-panel">Agregar Blog</button>
                         <button class="hf-btn full control-panel"><img src="/static/assets/User.svg" alt='user-logo'/>Editar perfil de usuario</button>
                         <button id="logoutbutton" class="hf-btn full control-panel"><img src="/static/assets/Salir.svg" alt='logout-logo'/>Salir</button>
                     </div>
@@ -79,31 +79,63 @@
                     <form   id='addBlogForm' method="POST">
                         <div class="hf-input-group">
                             <label>Nombre del Blog:</label>
-                            <Input Type="text" class="hf-text-input bd">
+                            <Input Type="text" class="hf-text-input bd" >
                         </div>
                         <div class="hf-input-group">
                             <label>Categoria:</label>
-                            <Input Type="text" class="hf-text-input bd"/>
+                            <Input Type="text" class="hf-text-input bd" />
                         </div>
                         <div class="hf-input-group">
-                            <textarea rows="10" class="hf-text-input bd textarea" placeholder="Escribe tu blog"></textarea>
+                            <textarea rows="10" class="hf-text-input bd textarea" placeholder="Escribe tu blog" ></textarea>
                         </div>
                         <button type="submit" class="hf-btn full control-panel">Crear Blog</button>  
                     </form>
                 </div>
             </div>
         </div>
-        
-
-
-
+        <!-- EDITAR BLOG -->
+        <button type="button" data-bs-toggle="modal" id="#editarBlog" data-bs-target="#editarBlog" style="display:none;" class="hf-btn empty control-panel">editar Blog</button>
+        <div class="modal fade" id="editarBlog"  data-bs-keyboard="true" tabindex="-1" aria-labelledby="editarBlogLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+                <div style="pointer-events: auto;" class="hf-login-form">
+                    <p class="hf-title">Editar Blog</p>         
+                    <form   id='editBlogForm' method="POST">
+                        <div class="hf-input-group">
+                            <label>Nombre del Blog:</label>
+                            <Input Type="text" class="hf-text-input bd" id="blog-title-input">
+                        </div>
+                        <div class="hf-input-group">
+                            <label>Categoria:</label>
+                            <Input Type="text" class="hf-text-input bd" id="blog-subject-input"/>
+                        </div>
+                        <div class="hf-input-group">
+                            <textarea rows="10" class="hf-text-input bd textarea" placeholder="Escribe tu blog" id="blog-content-input"></textarea>
+                        </div>
+                        <div class="hf-input-group" style="display:none;">
+                            <Input Type="text" class="hf-text-input bd" id="blog-id-input"/>
+                        </div>
+                        <button type="submit" class="hf-btn full control-panel">editar Blog</button>  
+                    </form>
+                </div>
+            </div>
+        </div>
         <!-- AGREGAR COMENTARIO -->
-        <!-- <div class="hf-comment-form">
-            <p class="hf-title">Comentar:</p>
-             <form>
-                     <textarea class="hf-txtarea" type="text" placeholder="Escribe un comentario" cols="15"></textarea>
-                 <button type="submit" class="hf-btn full control-panel">Comentar</button>
-             </form>
-        </div> -->
-
+        <div class="modal fade" id="agregarComentario"  data-bs-keyboard="true" tabindex="-1" aria-labelledby="agregarComentarioLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+                <div style="pointer-events: auto;" class="hf-comment-form">
+                    <p class="hf-title">Comentar:</p>
+                    <form id='addComment' method="POST">
+                            <textarea class="hf-txtarea" type="text" placeholder="Escribe un comentario" cols="15"></textarea>
+                        <button type="submit" class="hf-btn full control-panel">Comentar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- TOAST -->
+        <!-- <div class="toast d-flex align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-body">
+              Hello, world! This is a toast message.
+            </div>
+            <button type="button" class="btn-close btn-close-white ms-auto me-2" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div> -->
 {% endblock %}

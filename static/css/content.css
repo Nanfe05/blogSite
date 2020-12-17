@@ -6,6 +6,7 @@ body{
     margin: 0;
     background-image: url('/static/assets/fondo2.jpg');
     background-size: cover;
+    line-height: 1;
 }
 
 .hf-body{
@@ -265,7 +266,7 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    min-height: 250px;
     width: 90%;
     position: relative;
     margin: 10px 0;
@@ -312,7 +313,7 @@ body{
 .hf-delete-button
 {
     font-size: 12px;
-    padding: 5px;
+    margin: 0 10px;
     text-decoration: underline;
     cursor: pointer;
 }
@@ -334,6 +335,7 @@ body{
 .hf-blog-subject{
     width: 100%;
     font-family: 'Roboto';
+    margin:10px 0;
     text-align: left;
     font-style: italic;
     color: #330033;
@@ -348,7 +350,7 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    
+    margin:10px 0;
     width: 100%;
 
     font-family: 'Roboto';
@@ -358,6 +360,8 @@ body{
     font-weight: bold;
 }
 .hf-blog-last-comment{
+    display: flex;
+    flex-direction: column;
     font-family: 'Roboto';
     font-style: italic;
     font-size: 12px;
@@ -406,7 +410,7 @@ body{
     justify-content: space-between;
     align-items: stretch;
 
-    width: 100vw;
+    /* width: 100vw; */
 
     padding: 20px 50px;
     box-sizing: border-box;
@@ -464,6 +468,7 @@ body{
     width: 100%;
     
     margin:5px;
+    padding:15px;
 
     border-radius: 25px;
     
@@ -475,6 +480,7 @@ body{
 .hf-text-input.textarea{
     height: 150px;
     border-radius: 10px;
+    padding:15px;
 }
 .hf-footer-content{
     display: flex;
@@ -482,7 +488,7 @@ body{
     justify-content: center;
     align-items: center;
 
-    width: 100vw;
+    /* width: 100vw; */
     height: 100px;
 
     background-color: #330033;
@@ -585,6 +591,7 @@ body{
     width: 300px;
     
     margin:5px;
+    padding: 15px;
 
     border-radius: 10px;
     
