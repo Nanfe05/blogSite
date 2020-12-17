@@ -56,10 +56,30 @@ def logout():
 
 
                
-@blog_api.route('/blog_api/confirm_email/<token>')
+@blog_api.route('/blog_api/confirm_email/<token>',methods=['GET'] )
 def confirm_email(token):
-    
+    form = RegisterForm(request.form)
+    #email = email
+    email=''
+
+    con = get_db()
+    cursor = con.cursor()
+    query = "UPDATE usuarios SET emailValidated=True WHERE email='"+email+"'"
+    cursor.execute(query)
+    con.commit()#rows = cursor.fetchall()        
     return '<h1>Confirmacion completa</h1>'
+@blog_api.route('/blog_api/confirm_email/<token>/<string:email>',methods=['GET'] )    
+def confirm_email1(token,email):
+    form = RegisterForm(request.form)
+    email = email
+    
+
+    con = get_db()
+    cursor = con.cursor()
+    query = "UPDATE usuarios SET emailValidated=True WHERE email='"+email+"'"
+    cursor.execute(query)
+    con.commit()#rows = cursor.fetchall()        
+    return '<h1>Confirmacion completa</h1>'    
 
    
 @blog_api.route('/api/register',methods=['POST'])
@@ -75,8 +95,8 @@ def register():
             email = request.form.get('email')                      
             token = s.dumps(email, salt='email-confirm')
             msg = Message('Confirm Email', sender='ffernandezj@uninorte.edu.co', recipients=[email])
-            link = url_for('blog_api.confirm_email', token=token, _external=True)
-            msg.body = 'Your link is {}'.format(link)
+            link = url_for('blog_api.confirm_email', token=token,  _external=True)
+            msg.body = 'Your link is {}/{}'.format(link,email)
             mail.send(msg)   
               
         return app  
@@ -90,7 +110,7 @@ def register():
             
             
             email = request.form.get('email')                      
-            gettingapp()                    
+                                
             con = get_db()
             cursor = con.cursor()
             ## CHECK IF EMAIL PREVIOUSLY EXISTS
@@ -100,22 +120,24 @@ def register():
             if(len(user_exists)):
                 close_connection()
                 # Init session
-                return jsonify(type='error',msg='Error al registrar usuario!')
+                return jsonify(type='error',msg='Usuario ya existe')
                 #return jsonify(type='success',msg='Email registrado previamente')
             ## IF USER HAS NOT BEEN CREATED, CREATE IT
             name=request.form.get('name')
             lastname=request.form.get('lastname')
             password= generate_password_hash(request.form.get('password'))
+            #password1=request.form.get('password1')
             query = "INSERT INTO usuarios (name,lastname,email,password) VALUES('"+name+"','"+lastname+"','"+email+"','"+password+"')"
             cursor.execute(query)
             con.commit()#rows = cursor.fetchall()
             close_connection()
             session['user_email']=email
-            
+            gettingapp()
             return redirect(url_for("blog"))
+            
         except Exception as e:
             print(e)
-            return jsonify(type='error',msg='Error al registrar usuario!')
+            return jsonify(type='error',msg=form.errors)
     return jsonify(type='error',msg=form.errors)
 
 @blog_api.route('/api/recoverpassword',methods=['POST'])
